@@ -2,7 +2,7 @@ FROM node:latest
 
 RUN mkdir /node
 WORKDIR /node
-COPY ./package*.json /node
+COPY ./package*.json /node/
 RUN npm install
 COPY . .
 RUN npm run build
