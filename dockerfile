@@ -1,7 +1,13 @@
-FROM node:14
+FROM node:latest
+
 WORKDIR /usr/src/app
-COPY ./codexbox-project/package*.json /usr/src/app/
+
+COPY package*.json ./
+
 RUN npm install
-COPY ./codexbox-project/ /usr/src/app/
-EXPOSE 3000 
+
+COPY . .
+
+EXPOSE 3000
+
 CMD [ "node", "index.js" ]
