@@ -1,11 +1,15 @@
-FROM node:latest
+FROM node
 
-RUN mkdir /node
-WORKDIR /node
-COPY ./package*.json /node/
+RUN mkdir /app
+
+WORKDIR /app
+COPY package.json /app
+
 RUN npm install
-COPY . .
+COPY . /app
+
 RUN npm run build
-FROM nginx
-COPY --from=builder /node/build /usr/share/nginx/html
-COPY ./docker/nginx/default.conf /etc/nginx/conf.d/default.conf
+
+FROM nginx:latest
+
+COPY --from=build-step /app/build /usr/share/nginx/html
